@@ -590,19 +590,9 @@ copy=/home/\$user/.bash_profile     # provides a disposable copy
 # doing keylogging.  If you enable these, be sure to close all sandboxes
 # before updating your system.  Your package manager won't be able to
 # update these files while they are mounted in a sandbox.
-#
-# hide=/usr/bin/import
 # hide=/usr/bin/xauth
 # hide=/usr/bin/xev
-# hide=/usr/bin/xhost
-# hide=/usr/bin/xwd
-# hide=/usr/bin/xscreensaver
-# hide=/usr/bin/xscreensaver-command
-# hide=/usr/bin/xscreensaver-demo
-# hide=/usr/bin/xscreensaver-getimage
-# hide=/usr/bin/xscreensaver-getimage-file
-# hide=/usr/bin/xscreensaver-getimage-video
-# hide=/usr/bin/Xorg
+hide=/usr/bin/Xorg
 # hide=/etc/X11
 # hide=/usr/lib/X11
 
@@ -626,28 +616,22 @@ EOF
 
 # root folders and files required by firefox
 bindro=/bin
-bindro=/opt/firefox     # sometimes firefox is installed here
 bind=/dev/null
 bind=/dev/urandom       # used by Firefox for security purposes
 bind=/dev/random        # used by Firefox for printing
-bind=/dev/nvidia0
-bind=/dev/nvidiactl
 bindro=/etc
 bindro=/lib
 bindro=/lib32
 bindro=/lib64
-bindro=/opt/lib32
 bind=/tmp
 bindro=/usr
 bindro=/var/lib
-hide=/var/lib/mlocate
 bindro=/run/resolvconf   # used by Firefox for DNS support
+hide=/var/lib/mlocate
 
-# required by alsa for Flash sound
+# required by alsa
 bindro=/dev/snd
-
-# required by Java
-bindro=/opt/java
+# required to launch
 bindro=/proc
 
 # required by Cups printing in Firefox
@@ -659,172 +643,25 @@ bind=/var/run               # Firefox shows Cups printers
 # You may need to add additional binds to your home folders and files in order
 # for every aspect of Firefox to work as you want.  Or you can share your
 # entire /home/\$user folder (this would reduce security)
-bind=/home/\$user/.mozilla
-bind=/home/\$user/.esd_auth
-bind=/home/\$user/.java
-bindro=/home/\$user/.asoundrc
-
-# Needed for KDE and Gnome themes in Firefox   (may be incomplete for gnome)
-# To find out what other binds you may need, run 'env' in a shell as user
-#       and examine the values of GTK2_RC_FILES and GTK_RC_FILES and XCURSOR_THEME
-# Note: The bind for kdeglobals below is a limited privacy risk, as KDE4 stores
-#       recent file and folder names in this file.  You can clean this file with 
-#       kscrubber:  http://igurublog.wordpress.com/downloads/script-kscrubber/
-#       or don't bind it, but your theme may not work in Firefox
-bind=/home/\$user/.config/gtk-2.0
-bindro=/home/\$user/.fontconfig
-bindro=/home/\$user/.fonts
-bind=/home/\$user/.gtkrc-2.0
-bind=/home/\$user/.gtkrc-2.0-kde4
-bind=/home/\$user/.kde/share/config/gtkrc
-bind=/home/\$user/.kde/share/config/gtkrc-2.0      
-bindro=/home/\$user/.kde/share/config/kdeglobals
-bind=/home/\$user/.kde4/share/config/gtkrc
-bind=/home/\$user/.kde4/share/config/gtkrc-2.0      
-bindro=/home/\$user/.kde4/share/config/kdeglobals
-bindro=/home/\$user/.gtkrc-2.0-kde
-bind=/home/\$user/.kde3/share/config/gtkrc
-bind=/home/\$user/.kde3/share/config/gtkrc-2.0      
-bindro=/home/\$user/.kde3/share/config/kdeglobals
-bindro=/home/\$user/.Xdefaults  # for cursor theme
-bindro=/home/\$user/.Xauthority
-#bindro=/etc/gtk-2.0/gtkrc      # used but already binded all of /etc
-
-
-# Required by flash player for persisent LSOs
-# Hide will store the cookies in ram and destroy them on exit.  If you need
-# LSOs to be permanent, use bind= instead.
-# http://www.wired.com/epicenter/2009/08/you-deleted-your-cookies-think-again/
-hide=/home/\$user/.adobe            # creates a dummy folder
-hide=/home/\$user/.macromedia   # creates a dummy folder
+bind=/home/$user/.mozilla
+bind=/home/$user/.config/gtk-3.0
+bindro=/home/$user/.asoundrc
+bindro=/home/$user/.dbus
+bindro=/home/$user/.fontconfig
+bindro=/home/$user/.fonts
+bindro=/home/$user/.Xauthority
 
 
 # other folders and files
 # You may want to bind your Downloads or other data folders below so you
 # can easily save and upload files from within Firefox.
+bind=/home/$user/Downloads
 
 EOF
-    fi
-    if [ ! -e "$profolder/skype.profile" ]; then
-        cat << EOF > "$profolder/skype.profile"
-# Sandfox Skype Profile
-#
-# Note that default.profile is always loaded in addition to other profiles 
-#
-# For instructions consult http://igurublog.wordpress.com/downloads/script-sandfox/
-# OPTION
-# or
-# OPTION=VALUE   (Do not use quotes)
-#
-# To include another profile in this profile:
-# profile=PROFILENAME
 
-# Set this to your Skype video device
-# Note: /dev/video probably won't work
-bind=/dev/video0
-
-bind=/dev/shm
-bind=/dev/snd
-bind=/dev/nvidia0
-bind=/dev/nvidiactl
-# bind=/sys/devices/system/cpu      # ???
-# bindro=/etc/pulse/client.conf     # only needed if /etc not bound
-bindro=/proc/interrupts
-bindro=/var/cache/libx11/compose
-bind=/tmp
-bindro=/usr
-bind=/usr/share/skype  # Gentoo users may need to disable this bind
-bind=/opt/skype
-
-# Following only needed if all of /tmp not bound above
-# copy=/tmp/.ICE-unix           
-# copy=/tmp/.X11-unix/X0
-# bind=/tmp/pulse-*/native
-
-# Following only needed if all of /usr not bound above
-# copy=/usr/bin/skype
-# bindro=/usr/lib/qt4/plugins/iconengines
-# bindro=/usr/lib/qt4/plugins/imageformats
-# bindro=/usr/lib/qt4/plugins/imageformats
-# bindro=/usr/lib/qt4/plugins/inputmethods
-# bindro=/usr/share/X11/locale
-# bindro=/usr/share/icons
-# bindro=/usr/share/fonts
-
-bind=/home/\$user/.Skype
-bindro=/home/\$user/.ICEauthority
-bindro=/home/\$user/.Xauthority
-bindro=/home/\$user/.config/Trolltech.conf
-bindro=/home/\$user/.fontconfig
-bindro=/home/\$user/.asoundrc
-
-EOF
-    fi
-    if [ ! -e "$profolder/google-earth.profile" ]; then
-        cat << EOF > "$profolder/google-earth.profile"
-# Sandfox Google-Earth Profile
-#
-# Note that default.profile is always loaded in addition to other profiles 
-#
-# For instructions consult http://igurublog.wordpress.com/downloads/script-sandfox/
-# OPTION
-# or
-# OPTION=VALUE   (Do not use quotes)
-#
-# To include another profile in this profile:
-# profile=PROFILENAME
-
-
-# root folders and files
-bindro=/bin
-bind=/dev/null
-bind=/dev/urandom
-bind=/dev/random
-bind=/dev/nvidia0
-bind=/dev/nvidiactl
-bindro=/etc
-bindro=/lib
-bindro=/lib32
-bindro=/lib64
-bindro=/opt/lib32
-bind=/tmp
-bindro=/usr
-bindro=/var/lib
-hide=/var/lib/mlocate
-bindro=/opt/google/earth
-bindro=/opt/google-earth
-
-# required by Cups printing
-bind=/var/cache/cups
-bind=/var/cache/fontconfig
-bind=/var/run
-
-# home folders and files
-# You may need to add additional binds to your home folders and files in order
-# for every aspect of Google-Earth to work as you want.  Or you can share your
-# entire /home/\$user folder (this would reduce security)
-bind=/home/\$user/.googleearth
-bind=/home/\$user/.config/Google
-bind=/home/\$user/.esd_auth
-bindro=/home/\$user/.config/Trolltech.conf
-
-# Themes
-bindro=/home/\$user/.Xdefaults
-bindro=/home/\$user/.Xauthority
-bindro=/home/\$user/.fontconfig
-bindro=/home/\$user/.fonts
-
-# other folders and files
-# You may want to bind your Downloads or other data folders below so you
-# can easily save and upload files from within Google-Earth.
-
-
-EOF
     fi
     if [ ! -e "$profolder/default.profile" ] || \
-       [ ! -e "$profolder/firefox.profile" ] || \
-       [ ! -e "$profolder/google-earth.profile" ] || \
-       [ ! -e "$profolder/skype.profile" ]; then
+       [ ! -e "$profolder/firefox.profile" ]; then
         log "sandfox: Error: Could not create default profiles in $profolder" "quiet"
         exit 3
     fi
