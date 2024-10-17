@@ -357,7 +357,7 @@ rmbox () {   # $1=mnt folder to remove
             log "         recommended that you reboot or backup original folders, then" "quiet"
             log "         manually remove $cleanpath as root." "quiet"
             exit 4
-        elif (( f1 > 500 )) && [ "$mounts" = "" ]; then
+        elif (( f1 > 2500 )) && [ "$mounts" = "" ]; then
             log "sandfox: Error: Not all files could be safely removed from $cleanpath" "quiet"
             log "         because the number of files remaining exceeds the safety limit" "quiet"
             log "         of 500.  It is recommended that you reboot or backup original" "quiet"
